@@ -1,8 +1,6 @@
 # syntax=docker/dockerfile:1
    
-FROM node:current-alpine3.17
-COPY . .
-WORKDIR /app
-RUN yarn install --production
-CMD ["node", "src/index.js"]
+FROM node:latest
+COPY start.sh start.sh
 EXPOSE 3000
+ENTRYPOINT ["/bin/bash", "start.sh"]
