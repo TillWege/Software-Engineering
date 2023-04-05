@@ -1,1 +1,1 @@
-docker build -t swe:prak1 .
+docker build -t swe:prak .

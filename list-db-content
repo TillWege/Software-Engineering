@@ -1,0 +1,5 @@
+docker run -it --network prak --rm mariadb mariadb -hprak_db -uuser -ppassword
+
+show databases;
+use prak_db;
+select * from todo_items;
