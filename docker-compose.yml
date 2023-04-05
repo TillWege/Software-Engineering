@@ -1,0 +1,38 @@
+version: "3.8"
+
+services:
+  app:
+    build: .
+    ports:
+       - "4200:3000"
+    volumes:
+      - "./app:/app"
+    environment:
+      - MYSQL_HOST=${DB_ALIAS} 
+      - MYSQL_USER=${DB_USER} 
+      - MYSQL_PASSWORD=${DB_PASSWORD} 
+      - MYSQL_DB=${DB_NAME} 
+    networks:
+      db-network:
+        aliases:
+          - "app"
+    depends_on:
+      - db
+
+  db:
+    image: "mariadb:latest"
+    volumes:
+      - "./db:/var/lib/mysql"
+    environment:
+      - MARIADB_USER=${DB_USER}
+      - MARIADB_PASSWORD=${DB_PASSWORD}
+      - MARIADB_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+      - MARIADB_DATABASE=${DB_NAME}
+    networks:
+      db-network:
+        aliases:
+          - ${DB_ALIAS}
+
+networks:
+  db-network:
+    external: false
